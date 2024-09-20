@@ -36,3 +36,83 @@ let employee: {
         console.log(date)
     }
 }
+
+// type aliases
+type Employer = {
+    readonly id: number,
+    name: string,
+    retire: (date: Date) => void
+}
+
+let employer = {id: 1, name: 'lijuan', retire: (date: Date) => {console.log(date)}}
+
+
+// union types
+function kgToLbs(weight: number | string): number{
+    // narrowing 
+    if(typeof weight === 'number')
+        return weight * 2.2
+    else
+        return parseInt(weight) * 2.2
+}
+
+kgToLbs(10)
+kgToLbs('10')
+
+//intersection tpyes
+type Draggable = {
+    drag: () => void
+}
+
+type Resizable = {
+    resize: () => void
+}
+
+type UIWidget = Draggable & Resizable
+
+let textBox: UIWidget = {
+    drag: () => {},
+    resize: () => {}
+}
+
+// literal types
+type Quantity = 50 | 100
+let Quantity: Quantity = 100
+
+
+// nullable types
+function greet(name: string | null | undefined) {
+    if(name)
+        console.log(name)
+    else
+        console.log('hello')
+}
+
+greet(undefined)
+
+// optional chaining
+type Customer = {
+    birthday: Date
+}
+
+function getCustomer(id: number): Customer | null | undefined {
+    return id === 0 ? null : {birthday: new Date()}
+}
+
+let customer = getCustomer(0)
+console.log(customer?.birthday)
+
+// nullish coaelscing operator
+let speed: number | null = null
+let ride = {
+    // falsy(undefined, null, '', false, 0)
+    // nullish coaelscing operator
+    speed: speed ?? 30
+}
+
+// type assertion
+// let phone = document.getElementById('phone') as HTMLInputElement
+let phone = <HTMLInputElement> document.getElementById('phone')
+phone.value
+
+
